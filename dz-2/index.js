@@ -3,16 +3,23 @@ const renderPlanets = function(planets) {
     "name", "rotation_period", "orbital_period",
     "diameter", "climate", "gravity",
     "terrain", "surface_water", "population",
-    "created", "edited"]
-  const title_1 = document.querySelector('#title_1');
-  title_1.insertAdjacentHTML('afterEnd', `
-  <table class='palnets_table'>
+    "created", "edited"];
+  const dashCaseToHumanReadable = item => {
+    return item.charAt(0).toUpperCase() + item.slice(1).replace('_', ' ');
+  }
+  const createTableHeading = (headingArr) => {
+    return headingArr.map((item) => {
+      return `<th> 
+          ${dashCaseToHumanReadable(item)} 
+        </th>`
+    }).join('')
+  }
+  const body = document.querySelector('body');
+  body.insertAdjacentHTML('beforeEnd', `
+  <table class='planets-table'>
     <tbody>
-      <tr> ${planetsCharacteristics.map((item) => {
-          return `<th> 
-              ${item.charAt(0).toUpperCase() + item.slice(1).replace('_', ' ')} 
-            </th>`
-        }).join('')} 
+      <tr> 
+        ${createTableHeading(planetsCharacteristics)} 
       </tr>
       ${ planets.map((element) => {
           return `<tr> 
@@ -33,10 +40,8 @@ renderButton.addEventListener("click", async () => {
     const res = await fetch('https://swapi.dev/api/planets');
     const {results: planets} = await res.json();
     renderPlanets(planets)
-    renderButton.removeAttribute('disabled')
-  } catch {
-    alert('error')
-    renderButton.removeAttribute('disabled')
+  } catch(error) {
+    alert(error.message)
   } finally {
     renderButton.removeAttribute('disabled')
   }
