@@ -10,11 +10,11 @@ const renderPlanets = function(planets) {
   const body = document.querySelector('body');
   const table = document.createElement('table');
   const tableRow = document.createElement('tr');
-  table.append(tableRow)
+  table.append(tableRow);
   planetsCharacteristics.forEach(item => {
-    const tableHead = document.createElement('th');
-    tableHead.innerHTML = dashCaseToHumanReadable(item);
-    tableRow.append(tableHead)
+    const th = document.createElement('th');
+    th.innerHTML = dashCaseToHumanReadable(item);
+    tableRow.append(th);
     
   })
   planets.forEach(element => {
@@ -24,37 +24,36 @@ const renderPlanets = function(planets) {
       tableCall.innerHTML = element[item];
       tableRow.append(tableCall);
     })
-    table.append(tableRow)
+    table.append(tableRow);
   });
-  table.classList.add("planets-table")
+  table.classList.add("planets-table");
   let selectedTd;
   table.addEventListener('click', (event) => {
     const tagName = event.target;
     if(event.target.tagName === 'TD') {
-      event.target.classList.add("planets-table-td")}
-      highlight(tagName)
+      event.target.classList.add("planets-table-selected-td")};
+      highlight(tagName);
   })
   function highlight(select) {
     if (selectedTd) {
-      selectedTd.classList.remove("planets-table-td");
+      selectedTd.classList.remove("planets-table-selected-td");
     }
     selectedTd = select;
-    selectedTd.classList.add("planets-table-td")
-  }
-  body.append(table)
+    selectedTd.classList.add("planets-table-selected-td");
+  };
+  body.append(table);
 }
 
-const renderButton = document.querySelector('#button')
+const renderButton = document.querySelector('#button');
 renderButton.addEventListener("click", async () => {
   try {
-    renderButton.setAttribute('disabled', 'true')
+    renderButton.setAttribute('disabled', 'true');
     const res = await fetch('https://swapi.dev/api/planets');
     const {results: planets} = await res.json();
-    renderPlanets(planets)
+    renderPlanets(planets);
   } catch(error) {
-    alert(error.message)
+    alert(error.message);
   } finally {
-    renderButton.removeAttribute('disabled')
+    renderButton.removeAttribute('disabled');
   }
 });
-
