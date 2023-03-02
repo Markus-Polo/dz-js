@@ -4,19 +4,24 @@ const renderPlanets = function(planets) {
     "diameter", "climate", "gravity",
     "terrain", "surface_water", "population",
     "created", "edited"];
+
   const dashCaseToHumanReadable = item => {
     return item.charAt(0).toUpperCase() + item.slice(1).replace('_', ' ');
   }
+
   const body = document.querySelector('body');
   const table = document.createElement('table');
   const tableRow = document.createElement('tr');
-  table.append(tableRow);
+  table.classList.add("planets-table");
+
   planetsCharacteristics.forEach(item => {
     const th = document.createElement('th');
     th.innerHTML = dashCaseToHumanReadable(item);
     tableRow.append(th);
-    
   })
+
+  table.append(tableRow);
+
   planets.forEach(element => {
     const tableRow = document.createElement('tr');
     planetsCharacteristics.forEach((item) =>{
@@ -26,21 +31,23 @@ const renderPlanets = function(planets) {
     })
     table.append(tableRow);
   });
-  table.classList.add("planets-table");
+
   let selectedTd;
-  table.addEventListener('click', (event) => {
-    const tagName = event.target;
-    if(event.target.tagName === 'TD') {
-      event.target.classList.add("planets-table-selected-td")};
-      highlight(tagName);
-  })
-  function highlight(select) {
+  function highlight(select)  {
     if (selectedTd) {
       selectedTd.classList.remove("planets-table-selected-td");
     }
     selectedTd = select;
     selectedTd.classList.add("planets-table-selected-td");
-  };
+  }
+
+  table.addEventListener('click', (event) => {
+    const target = event.target;
+    if(target.tagName === 'TD') {
+      highlight(target)
+    };
+  })
+
   body.append(table);
 }
 
@@ -57,3 +64,12 @@ renderButton.addEventListener("click", async () => {
     renderButton.removeAttribute('disabled');
   }
 });
+
+function fhu(i, a) {
+  return (function() {
+    const res = i + a;
+    console.log('xxx')
+  return res
+  })()
+};
+
