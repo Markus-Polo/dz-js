@@ -12,7 +12,7 @@
         }
         element = document.querySelector([target]);
         element.classList.add("active");
-      }
-    })
-  }
+      };
+    });
+  };
 })();
