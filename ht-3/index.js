@@ -64,12 +64,3 @@ renderButton.addEventListener("click", async () => {
     renderButton.removeAttribute('disabled');
   }
 });
-
-function fhu(i, a) {
-  return (function() {
-    const res = i + a;
-    console.log('xxx')
-  return res
-  })()
-};
-

@@ -1,0 +1,8 @@
+.fade {
+  display: none;
+}
+.active {
+  display: block;
+  color: red;
+  font-size: 50px;
+}
