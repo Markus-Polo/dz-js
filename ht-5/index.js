@@ -1,23 +1,26 @@
-function modal(){
+function initModal(){
   const buttons = document.querySelectorAll(`[data-toggle='modal']`);
+  const closeBtns = document.querySelectorAll(`[data-dismiss='modal']`);
+  let target;
   Array.from(buttons).forEach(button => {
     button.addEventListener('click', () => {
       const targetSelector = button.dataset.target;
-      const target = document.querySelector(targetSelector);
-      const modalWrapers = document.querySelectorAll(`#exampleModal`);
-      const closeBtns = document.querySelectorAll(`[data-dismiss="modal"]`);
+      target = document.querySelector(targetSelector);
       target.classList.add('show');
-      Array.from(modalWrapers).forEach(modalWraper => {
-        modalWraper.addEventListener('click', (event) => {
-          console.log(event)
-          Array.from(closeBtns).forEach(closeBtn => {
-            if(closeBtn === event.target) {
-              target.classList.remove('show');
-            }
-          })
-        })
-      })
-    })
-  })
+      close();
+    });
+  });
+  Array.from(closeBtns).forEach(closeButtons => {
+    closeButtons.addEventListener('click', () => {
+      target.classList.remove('show');
+    });
+  });
+  const close = () => {
+    target.addEventListener('click', (event) => {
+      if(target === event.target) {
+        target.classList.remove('show');
+      };
+    });
+  };
 };
-modal()
+initModal()
