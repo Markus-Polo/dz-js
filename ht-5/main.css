@@ -1,0 +1,48 @@
+.fade {
+  display: none;
+}
+.show {
+  position: absolute;
+  top: 0;
+  left: 0;
+  width: 100%;
+  height: 100vh;
+  background-color: #00000021;
+  display: flex;
+  justify-content: center;
+  align-items: center;
+}
+.modal-dialog {
+  display: flex;
+  padding: 20px;
+  width: 400px;
+  height: 200px;
+  background-color: white;
+  border-radius: 10px;
+  box-shadow: 0 22px 50px #00000061;
+}
+.modal-content {  
+  display: flex;
+  flex-direction: column;
+  justify-content: space-between;
+  width: 100%;
+}
+.modal-footer,
+.modal-header {
+  display: flex;
+  justify-content: space-between;
+}
+.btn-close {
+  background-color: red;
+  width: 20px;
+  height: 20px;
+  border-radius: 50%;
+}
+.btn {
+  padding: 10px 15px;
+  border-radius: 10px;
+  background-color: blue;
+  color: white;
+  font-size: 24px;
+}
+
