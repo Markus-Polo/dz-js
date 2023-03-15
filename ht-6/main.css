@@ -1,0 +1,72 @@
+.wraper {
+  display: flex;
+  justify-content: center;
+  gap: 40px;
+  padding: 50px 20px;
+}
+.btn {
+  position: relative;
+  padding: 15px 35px;
+  border: none;
+  border-radius: 8px;
+  background-color: blue;
+  color: white;
+  font-size: 24px;
+  font-weight: 700;
+  font-style: italic;
+}
+.btn:hover {
+  box-shadow: 0 0 30px #0800ff67;
+}
+.btn:active {
+  box-shadow: none;
+}
+.message {
+  position: absolute;
+  margin: 0;
+  padding: 15px 20px;
+  background-color: #2f2b2b;
+  color: white;
+  border-radius: 8px;
+}
+.arrow-bottom:before {
+  position: absolute;
+  content: '';
+  top: -15px;
+  left: 50%;
+  transform: translateX(-50%);
+  border-style: solid;
+  border-width: 0 10px 20px 10px;
+  border-color: transparent transparent#2f2b2b transparent;
+}
+.arrow-top:before {
+  position: absolute;
+  content: '';
+  bottom: -15px;
+  left: 50%;
+  transform: translateX(-50%);
+  border-style: solid;
+  border-width: 20px 10px 0 10px;
+  border-color: #2f2b2b transparent transparent transparent;
+  
+}
+.arrow-left:before {
+  position: absolute;
+  content: '';
+  left: 104%;
+  transform: translateX(-50%);
+  border-style: solid;
+  border-width: 10px 0 10px 20px;
+  border-color: transparent transparent transparent #2f2b2b;
+  
+}
+.arrow-right:before {
+  position: absolute;
+  content: '';
+  left: -4%;
+  transform: translateX(-50%);
+  border-style: solid;
+  border-width: 10px 20px 10px 0;
+  border-color: transparent #2f2b2b transparent transparent;
+  
+}
