@@ -2,10 +2,10 @@ function initTooltip(){
   const elements = Array.from(document.querySelectorAll(`[data-toggle="tooltip"]`));
   elements.forEach(element => {
     const message = document.createElement('p');
+    element.setAttribute('data-title', element.getAttribute('title'));
+    const title = element.dataset.title;
+    element.removeAttribute('title');
     element.addEventListener('mouseover', () => {
-      element.setAttribute('data-title', element.getAttribute('title'));
-      const title = element.dataset.title;
-      element.removeAttribute('title');
       const placement = element.dataset.placement;
       const top = element.getBoundingClientRect().top + window.pageYOffset;
       const right = element.getBoundingClientRect().right + window.pageXOffset;
