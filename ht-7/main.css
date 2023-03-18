@@ -1,0 +1,32 @@
+*,
+*:before,
+*:after {
+  box-sizing: border-box;
+}
+p {
+  margin: 0;
+}
+.btn {
+  margin: 0;
+  padding: 10px 15px;
+  border-radius: 10px;
+  background-color: blue;
+  color: white;
+  font-size: 24px;
+}
+.collapse {
+  height: 0;
+  overflow: hidden;
+  transition: height 1s;
+}
+.card {
+  max-width: 500px;
+  margin-top: 5px;
+  margin-bottom: 5px;
+  padding: 15px;
+  border-radius: 8px;
+  background-color: #555252;
+  color: white;
+  font-size: 20px;
+}
+
