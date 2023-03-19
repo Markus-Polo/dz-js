@@ -3,6 +3,11 @@
 *:after {
   box-sizing: border-box;
 }
+.accordion-wraper {
+  display: flex;
+  flex-direction: column;
+  gap: 20px;
+}
 .accordion-item {
   display: flex;
   flex-direction: column;

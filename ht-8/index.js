@@ -7,25 +7,23 @@ function initCollapse(){
     })
   });
   const collapseShow = (cardId, button) => {
-    const parentButton = button.parentElement.parentElement.parentElement;
-    const cards = Array.from(parentButton.querySelectorAll(cardId));
-    const cardShow = parentButton.querySelector('.show');
-    cards.forEach(card => {
-      if (card.clientHeight !== 0) {
-        card.style.height = 0;
-        button.ariaExpanded = 'false'
-      } else if (cardShow) {
-        cardShow.style.height = 0;
-        cardShow.classList.remove('show');
-        card.style.height = card.scrollHeight + 'px';
-        button.ariaExpanded = 'true';
-        card.classList.add('show');
-      } else {
-        card.style.height = card.scrollHeight + 'px';
-        button.ariaExpanded = 'true';
-        card.classList.add('show');
-      }
-    })
+    const accordionContaine = button.closest('.accordion');
+    const card = accordionContaine.querySelector(cardId);
+    const cardShow = accordionContaine.querySelector('.show');
+    if (card.clientHeight !== 0) {
+      card.style.height = 0;
+      button.ariaExpanded = 'false'
+    } else if (cardShow) {
+      cardShow.style.height = 0;
+      cardShow.classList.remove('show');
+      card.style.height = card.scrollHeight + 'px';
+      button.ariaExpanded = 'true';
+      card.classList.add('show');
+    } else {
+      card.style.height = card.scrollHeight + 'px';
+      button.ariaExpanded = 'true';
+      card.classList.add('show');
+    };
   };
 };
 initCollapse()
