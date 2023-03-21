@@ -7,8 +7,8 @@ function initCollapse(){
     })
   });
   const collapseShow = (cardId, button) => {
-    const accordionContaine = button.closest('.accordion');
-    const card = accordionContaine.querySelector(cardId);
+    const card = document.querySelector(cardId);
+    const accordionContaine = document.querySelector(card.dataset.parent);
     const cardShow = accordionContaine.querySelector('.show');
     if (card.clientHeight !== 0) {
       card.style.height = 0;
