@@ -1,0 +1,39 @@
+*,
+*:before,
+*:after {
+  box-sizing: border-box;
+}
+.scrollspy-wrpper {
+  display: flex;
+  gap: 20px;
+}
+.list-group-wraper {
+  width: 30%;
+}
+.list-group-holder {
+  position: fixed;
+  width: 100%;
+}
+.list-group {
+  display: flex;
+  flex-direction: column;
+  gap: 20px;
+  padding: 20px;
+  width: 30%;
+}
+.list-group-item {
+  display: flex;
+  justify-content: center;
+  padding: 20px;
+  text-decoration: none;
+  background-color: blanchedalmond;
+  border-radius: 8px;
+}
+.scrollspy {
+  width: 70%;
+  font-size: 80px;
+}
+.acktive {
+  background-color: blue;
+  color: white;
+}
