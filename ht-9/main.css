@@ -3,23 +3,21 @@
 *:after {
   box-sizing: border-box;
 }
+ul {
+  list-style-type: none;
+}
 .scrollspy-wrpper {
-  display: flex;
+  display: grid;
+  grid-template-columns:1fr 3fr;
   gap: 20px;
 }
-.list-group-wraper {
-  width: 30%;
-}
-.list-group-holder {
-  position: fixed;
-  width: 100%;
-}
 .list-group {
+  position: sticky;
+  top: 0;
   display: flex;
   flex-direction: column;
   gap: 20px;
   padding: 20px;
-  width: 30%;
 }
 .list-group-item {
   display: flex;
@@ -30,10 +28,9 @@
   border-radius: 8px;
 }
 .scrollspy {
-  width: 70%;
-  font-size: 14px;
+  font-size: 20px;
 }
-.acktive {
+.active {
   background-color: blue;
   color: white;
 }

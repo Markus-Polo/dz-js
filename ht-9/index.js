@@ -1,23 +1,21 @@
 function scrollspy () {
   const scrollspyContent = document.querySelector(`[data-spy="scroll"]`);
-  const scrollspyLincksWraper = document.querySelector(scrollspyContent.dataset.target);
-  const scrollspyLincks = Array.from(scrollspyLincksWraper.querySelectorAll('.list-group-item'));
+  const scrollspyLinksWrapper = document.querySelector(scrollspyContent.dataset.target);
+  const scrollspyLinks = Array.from(scrollspyLinksWrapper.querySelectorAll('.list-group-item'));
+  const remove = () => {
+    const activeLink = scrollspyLinksWrapper.querySelector('.active');
+    activeLink?.classList.remove('active');
+  };
   window.addEventListener('scroll', () => {
-    const scrollPosition = window.scrollY;
-    scrollspyLincks.forEach((linck, i, arr) => {
-      const listItem = document.querySelector(linck.getAttribute('href'));
+    scrollspyLinks.forEach((link, i, arr) => {
+      const listItem = document.querySelector(link.getAttribute('href'));
       const rect = listItem.getBoundingClientRect();
-      let remove = () => {
-        scrollspyLincks.forEach(linck => {
-          linck.classList.remove('acktive');
-        });
-    }
       if (rect.y < innerHeight/4 && rect.y > 0) {
         remove();
-        linck.classList.add('acktive');
+        link.classList.add('active');
       } else if (innerHeight + window.scrollY >= document.body.scrollHeight) {
         remove();
-        arr[arr.length - 1].classList.add('acktive');
+        arr[arr.length - 1].classList.add('active');
       }
     });
   });
