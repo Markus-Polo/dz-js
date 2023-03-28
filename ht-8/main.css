@@ -3,7 +3,7 @@
 *:after {
   box-sizing: border-box;
 }
-.accordion-wraper {
+.accordion-wrapper {
   display: flex;
   flex-direction: column;
   gap: 20px;
