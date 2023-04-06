@@ -9,60 +9,75 @@ function debounce (func, ms) {
 };
 
 function search() {
-  const body = document.querySelector('.img-wrapper');
+  const baseUrl = 'https://pixabay.com/api/';
+  const apiKey = '34969259-1340cd29ea32dd0019bae9b64';
+  const imagesWrapper = document.querySelector('.images-wrapper');
   const searchInput = document.getElementById("search-input");
-  let pageN = 1;
+  let pageN;
   let searchValue;
-
+  let images;
   function removeMarkup () {
-    Array.from(document.querySelectorAll(`[data-search='res']`)).forEach(element => {
-      element.remove();
-    });
+    imagesWrapper.replaceChildren();
+    document.querySelector(`[data-search='res']`)?.remove();
   };
-
   searchInput.addEventListener('input', debounce (() => {
-    searchValue = searchInput.value.replace( / /g, "+" );
+    searchValue = searchInput.value.trim().replaceAll( ' ', "+" );
     if(searchValue) {
+      pageN = 1;
       removeMarkup();
-      fetchFunc();
+      fetchImages();
     }
   }, 1500));
-
-  function fetchFunc() {
-    const res = fetch(`https://pixabay.com/api/?key=34969259-1340cd29ea32dd0019bae9b64&q=${searchValue}&image_type=photo&page=${pageN}&per_page=4`)
+  function fetchImages() {
+    const res = fetch(`${baseUrl}?key=${apiKey}&q=${searchValue}&image_type=photo&page=${pageN}&per_page=4`)
     .then(res => res.json())
-    .then(res => {
-      const imageArr = Array.from(res.hits);
-      console.log(imageArr);
-      addMarkup (imageArr);
-    });
+    .then(res => images = res.hits)
+    .then(() => addMarkup())
+    .catch(error => myError(error));
   };
-
-  function addMarkup (arr) {
-    if (arr.length === 0) {
-      body.insertAdjacentHTML('beforebegin', 
+  function addMarkup () {
+    if (images.length === 0) {
+      const error = 'Ops :(';
+      myError(error)
+    } else {
+      images.forEach(element => {
+        imagesWrapper.insertAdjacentHTML('beforeEnd',
+        `<li>
+          <figure class='res-img'>
+            <img src="${element.webformatURL}">
+            <figcaption class='tags-img'>${element.tags}</figcaption>
+          </figure>
+        </li>`
+        );
+      });
+    };
+    const target = imagesWrapper.lastChild;
+    observer(target);
+  };
+  function myError(error) {
+    imagesWrapper.insertAdjacentHTML('beforebegin', 
       `
       <h2 data-search='res' class='title-2'>
-      Oops, nothing was found
+      ${error}
       </h2>
       `
-      )
-    };
-    arr.forEach(element => {
-      body.insertAdjacentHTML('beforeEnd',
-      `<figure data-search='res' class='res-img'>
-        <img src="${element.webformatURL}">
-        <figcaption class='tags-img'>${element.tags}</figcaption>
-      </figure>`
-      )
-    });
+    )
   };
-
-  window.addEventListener('scroll', () => {
-    if ((innerHeight + window.scrollY) + 50 >= document.body.scrollHeight) {
-      pageN++
-      fetchFunc();
+  function observer(target) {
+    const options = {
+      root: null,
+      threshold: 1.0};
+    const callback = (entries, observer) => {
+      if (entries[0].isIntersecting) {
+        pageN++;
+        fetchImages();
+        observer.disconnect();
+      };
     };
-  });
+    let observer = new IntersectionObserver(callback, options);
+    if (target) {
+      observer.observe(target);
+    };
+  };
 };
-search()
+search();
