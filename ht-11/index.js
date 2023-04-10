@@ -13,7 +13,7 @@ function search() {
   const apiKey = '34969259-1340cd29ea32dd0019bae9b64';
   const imagesWrapper = document.querySelector('.images-wrapper');
   const searchInput = document.getElementById("search-input");
-  let pageN;
+  let pageNumber;
   let searchValue;
   let images;
   function removeMarkup () {
@@ -23,28 +23,28 @@ function search() {
   searchInput.addEventListener('input', debounce (() => {
     searchValue = searchInput.value.trim().replaceAll( ' ', "+" );
     if(searchValue) {
-      pageN = 1;
+      pageNumber = 1;
       removeMarkup();
       fetchImages();
     }
   }, 1500));
   function fetchImages() {
-    const res = fetch(`${baseUrl}?key=${apiKey}&q=${searchValue}&image_type=photo&page=${pageN}&per_page=4`)
+    const res = fetch(`${baseUrl}?key=${apiKey}&q=${searchValue}&image_type=photo&page=${pageNumber}&per_page=4`)
     .then(res => res.json())
     .then(res => images = res.hits)
     .then(() => addMarkup())
-    .catch(error => myError(error));
+    .catch(error => showError(error));
   };
   function addMarkup () {
     if (images.length === 0) {
-      const error = 'Ops :(';
-      myError(error)
+      const error = 'Oops :(';
+      showError(error)
     } else {
       images.forEach(element => {
         imagesWrapper.insertAdjacentHTML('beforeEnd',
         `<li>
           <figure class='res-img'>
-            <img src="${element.webformatURL}">
+            <img src="${element.webformatURL}" alt="${element.tags}">
             <figcaption class='tags-img'>${element.tags}</figcaption>
           </figure>
         </li>`
@@ -54,27 +54,28 @@ function search() {
     const target = imagesWrapper.lastChild;
     observer(target);
   };
-  function myError(error) {
+  function showError(error) {
     imagesWrapper.insertAdjacentHTML('beforebegin', 
       `
       <h2 data-search='res' class='title-2'>
       ${error}
       </h2>
       `
-    )
+    );
   };
   function observer(target) {
     const options = {
       root: null,
-      threshold: 1.0};
-    const callback = (entries, observer) => {
+      threshold: 1.0
+    };
+    const infiniteScroll = (entries, observer) => {
       if (entries[0].isIntersecting) {
-        pageN++;
+        pageNumber++;
         fetchImages();
         observer.disconnect();
       };
     };
-    let observer = new IntersectionObserver(callback, options);
+    let observer = new IntersectionObserver(infiniteScroll, options);
     if (target) {
       observer.observe(target);
     };
