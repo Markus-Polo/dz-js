@@ -36,7 +36,7 @@ function search() {
     .catch(error => showError(error));
   };
   function addMarkup () {
-    if (images.length === 0) {
+    if (images.length === 0 && pageNumber <= 1) {
       const error = 'Oops :(';
       showError(error)
     } else {
