@@ -27,6 +27,7 @@
 }
 .slide-img {
   width: 100%;
+  max-height: 600px;
   background-color:bisque;
   object-fit: cover;
 }

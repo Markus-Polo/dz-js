@@ -1,32 +1,45 @@
 function carousel () {
   const nextButtons = Array.from(document.querySelectorAll(`[data-slide="next"]`));
   const prevButtons = Array.from(document.querySelectorAll(`[data-slide="prev"]`));
-  let carouselWrapper;
-  let carouselItems;
-  nextButtons.forEach(nextButton => {
-    nextButton.addEventListener('click', () => {
-      carouselWrapper = document.querySelector(`${nextButton.dataset.target}`);
-      carouselItems = Array.from(carouselWrapper.querySelectorAll('.carousel-item'));
-      slideLeft();
+  nextButtons.forEach(button => {
+    button.addEventListener('click', () => {
+      directionDetermination(button);
     });
   });
-  prevButtons.forEach(prevButton => {
-    prevButton.addEventListener('click', () => {
-      carouselWrapper = document.querySelector(`${prevButton.dataset.target}`);
-      carouselItems = Array.from(carouselWrapper.querySelectorAll('.carousel-item'));
-      slideRight();
+  prevButtons.forEach(button => {
+    button.addEventListener('click', () => {
+      directionDetermination(button);
     });
   });
-  function slideLeft() {
+  function directionDetermination(button) {
+    let direction;
+    const buttonTarget = button.dataset.target;
+    const buttonSlide = button.dataset.slide;
+    const carouselWrapper = document.querySelector(`${buttonTarget}`);
+    const carouselItems = Array.from(carouselWrapper.querySelectorAll('.carousel-item'));
+    if(buttonSlide === 'next') {
+      direction = true;
+      slide(carouselItems, direction);
+    } else {
+      direction = false;
+      slide(carouselItems, direction);
+    }
+  };
+  function slide(carouselItems, direction) {
     let nextItem;
+    let prevItem;
     let stop = false;
     for(let i = 0; stop === false; i++) {
-      if (carouselItems.length - 1 !== i ) {
+      if (direction === true && carouselItems.length - 1 !== i ) {
         nextItem = i + 1;
-      } else {
+      } else if (direction === true) {
         nextItem = 0;
+      } else if (direction === false && i !== 0) {
+        prevItem = i - 1;
+      } else {
+        prevItem = carouselItems.length - 1;
       };
-      if(carouselItems[i].classList.contains('active')) {
+      if (carouselItems[i].classList.contains('active') && direction === true) {
         carouselItems[i].style.left='0';
         carouselItems[nextItem].style.display='block';
         carouselItems[nextItem].style.right='-100%';
@@ -42,19 +55,7 @@ function carousel () {
           carouselItems[nextItem].style.right='';
         }, 600);
         stop = true;
-      };
-    };
-  };
-  function slideRight() {
-    let prevItem;
-    let stop = false;
-    for(let i = 0; stop === false; i++) {
-      if (i !== 0) {
-        prevItem = i - 1;
-      } else {
-        prevItem = carouselItems.length - 1;
-      };
-      if(carouselItems[i].classList.contains('active')) {
+      } else if (carouselItems[i].classList.contains('active') && direction === false) {
         carouselItems[i].style.right='0';
         carouselItems[prevItem].style.display='block';
         carouselItems[prevItem].style.left='-100%';
@@ -70,8 +71,8 @@ function carousel () {
           carouselItems[prevItem].style.left='';
         }, 600);
         stop = true;
-      };
+      }
     };
-  }
+  };
 };
 carousel();
